@@ -90,6 +90,11 @@ core.filter.update = function(entity)
 			F[name][entity] = nil
 			print("Removing ", name)
 			-- TODO: Run unregister functions
+			if core.system.unregisters[name] then
+				for _,v in  ipairs(core.system.unregisters[name]) do
+					v.unregister[name](entity)
+				end
+			end
 		end
 
 
@@ -100,6 +105,11 @@ core.filter.update = function(entity)
 			F[name][entity] = #(E[name])
 
 			-- TODO: Run register functions
+			if core.system.registers[name] then
+				for _,v in  ipairs(core.system.registers[name]) do
+					v.register[name](entity)
+				end
+			end
 		end
 	end
 end
