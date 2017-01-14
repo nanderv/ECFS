@@ -12,6 +12,13 @@ end
 core.filter.remove = function(name)
 	E[name] = nil
 	F[name] = nil
+	for k,v in ipairs(core.filter.rules) do
+		if v[1] == name then
+			core.filter.rules[k] = core.filter.rules[#core.filter.rules]
+			core.filter.rules[#core.filter.rules] = nil
+			break
+		end
+	end
 end
 
 core.filter.update = function(entity)
