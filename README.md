@@ -19,6 +19,8 @@ A system is a piece of logic. It contains logic functions that run each frame (u
 ```
 local s = {}
 s.update = function() end
+s.register = {}
+s.unregister = {}
 s.register.wall   = function(entity) end
 s.unregister.wall = function(entity) end
 ```
