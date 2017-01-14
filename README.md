@@ -18,7 +18,8 @@ Filters are pretty much a reverse inheritence system. 'It has four wheels, so it
 A system is a piece of logic. It contains logic functions that run each frame (update, draw), logic functions that run upon load (load), and logic functions that run when an entity registers to a certain filter:
 ```
 local s = {}
-s.update = function() end
+s.functions = {}
+s.functions.update = function() end
 s.register = {}
 s.unregister = {}
 s.register.wall   = function(entity) end
