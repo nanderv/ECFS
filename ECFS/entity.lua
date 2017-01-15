@@ -12,8 +12,11 @@ function core.entity.remove(entity)
 			E[name][ind] = E[name][#E[name]]
 			E[name][#E[name]] = nil
 			F[name][entity] = nil
-		end
+			if core.system.unregisters[name] then
+				for _,v in  pairs(core.system.unregisters[name]) do
+					v.unregisters[name](entity)
+				end
+			end
+		end	
 	end
-
 end
-

@@ -5,7 +5,6 @@ core.system.unregisters = {}
 core.system.add = function(system)
 
 	-- Add functionality of system to respected lists
-
 	if system.functions then
 		for k,v in pairs(system.functions) do
 			if not core.system.functions[k] then

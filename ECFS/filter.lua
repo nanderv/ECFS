@@ -88,30 +88,28 @@ core.filter.update = function(entity)
 			E[name][ind] = E[name][#E[name]]
 			E[name][#E[name]] = nil
 			F[name][entity] = nil
-			print("Removing ", name)
 			-- TODO: Run unregister functions
 			if core.system.unregisters[name] then
-				for _,v in  ipairs(core.system.unregisters[name]) do
-					v.unregister[name](entity)
+				for _,v in  pairs(core.system.unregisters[name]) do
+					v.unregisters[name](entity)
 				end
 			end
 		end
 
-
 		if all and not F[name][entity] then
-			print("Adding ", name)
 			-- entity not was part of filter, but will now be
 			E[name][#(E[name])+1] = entity
 			F[name][entity] = #(E[name])
 
 			-- TODO: Run register functions
 			if core.system.registers[name] then
-				for _,v in  ipairs(core.system.registers[name]) do
-					v.register[name](entity)
+				for _,v in  pairs(core.system.registers[name]) do
+					v.registers[name](entity)
 				end
 			end
 		end
 	end
 end
 
+-- Add list of all elements. Nice huh, using it's own logic to define this?
 core.filter.add("A",{})

@@ -3,18 +3,22 @@ require 'ECFS'
 require 'filters'
 
 function love.load()
+	core.system.add(require 'systems.test')
 	local entity1 = {position = {1,1}, engine={}}
 	core.entity.add(entity1)
-	print(#E.A)
+	core.entity.remove(entity1)
+
 end
 function love.draw()
-	for _,v in ipairs(core.system.functions.update)do
-		v.draw()
+	if core.system.functions.draw then
+		for _,v in pairs(core.system.functions.draw)do
+			v.functions.draw()
+		end
 	end
 end
 
 function love.update()
-	for _,v in ipairs(core.system.functions.update)do
-		v.update(dt)
+	for _,v in pairs(core.system.functions.update)do
+		v.functions.update(dt)
 	end
 end
