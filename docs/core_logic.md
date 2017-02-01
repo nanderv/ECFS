@@ -44,8 +44,6 @@ local function add1 = core.PreFill(add, 1)
 print(add1(2)) -- prints the number 3
 ```
 
-
-
 core.Chain = function(a, ...)
 -----------------------------
 core.Chain is a function that receives a function and arguments, and executes the function using those arguments. It then returns the given arguments. This is used for magical chaining.
