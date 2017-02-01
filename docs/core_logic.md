@@ -41,7 +41,7 @@ local function add (x,y)
 end
 
 local function add1 = core.PreFill(add, 1)
-print(add1(2))
+print(add1(2)) -- prints the number 3
 ```
 
 
