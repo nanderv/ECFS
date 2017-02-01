@@ -9,7 +9,6 @@ require 'helpers.core_funcs'
 require 'ECFS'
 require 'filters'
 
-local new_parent = require'entities.parent'
 fun = require'lib.fun'
 function love.load()
 	core.system.add(require 'systems.test')
