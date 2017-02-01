@@ -20,12 +20,13 @@ function love.load()
 
 	core.system.add(require 'systems.simple_move')
 
-	local ent = {collision = {type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=50, y=50, rotation=0}, mover = {x=100, y=0, rotation =  1}}
+	local ent = {collision = {type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=250, y=250, rotation=0}, mover = {x=100, y=0, rotation =  1}}
 	core.entity.add (ent)
 	pprint(ent)
-	ent = {collision = {type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=300, y=90, rotation=0}}
+	ent = {collision = {type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=440, y=290, rotation=0}}
 	core.entity.add (ent)
-
+	ent = {collision = {type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=0, y=290, rotation=0}}
+	core.entity.add (ent)
 	require 'scripts.breeding'
 
 end

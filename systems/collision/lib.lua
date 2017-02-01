@@ -11,9 +11,7 @@ f.circle_around = function(entity, list)
 		local xz = v.x
 		local yz = v.y
 		radius = math.max(radius, xz*xz + yz*yz)
-		print(radius)
 	end
-	print("AAAAA")
 	list[entity] = math.sqrt(radius)
 	return x, y, math.sqrt(radius)
 end
@@ -105,16 +103,10 @@ f.polygon_in_polygon = function(polygon2, polygon,position2,position)
 	for k,v in ipairs( polygon2) do
 		if point_in_polygon(polygon,v,position, position2) then
 			hit = true
-			print("BBB")
 			break
 		end
 		if line_in_polygon(polygon, old, v,position,position2) then
 			hit = true
-			pprint(polygon)
-			pprint(old)
-			pprint(v)
-			pprint(position)
-			pprint(position2)
 			break
 		end
 		old = v

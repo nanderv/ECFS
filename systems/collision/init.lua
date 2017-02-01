@@ -15,15 +15,13 @@ local function checkCollision (entity1)
 			-- Trivial check: check if squared distances are similar
 			
 			if distSQ < (s.circles[entity1] + s.circles[entity2])  then
-				print("HERE")
 				-- Check if the collision is necessary. I think this is slightly slower than the previous check, so that's why this one is later. Not tested.
 				if lib.check_rule(entity1, entity2) then
 				local p1 = rpo[entity1] or lib.rotate_poly(entity1)
 				local p2 = rpo[entity2] or lib.rotate_poly(entity2)
 				rpo[entity1] = p1
 				rpo[entity2] = p2
-				pprint(p1)
-				pprint(p2)
+
 				-- polygon collision
 				collided = lib.polygon_in_polygon(p1, p2, entity1.position, entity2.position)
 
@@ -43,9 +41,8 @@ end
 local function reverser(entity1, entity2, pos)
 	entity1.mover.x = -entity1.mover.x
 	entity1.mover.y = -entity1.mover.y
-	entity1.mover.rotation = -entity1.mover.rotation
+	--entity1.mover.rotation = -entity1.mover.rotation
 end
-lib.add_rule("test", "test", core.DoAll(lib.trivial_solve, reverser))
 s.functions.update = function(dt)
 	rpo = {}
 	for k,v in ipairs(E.dynamic_collision) do
@@ -72,5 +69,9 @@ s.unregisters.collision = function(entity)
 	print("Static  collision entity removed")
 
 end
+
+
+lib.add_rule("test", "test", core.DoAll(lib.trivial_solve, reverser))
+
 
 return s
