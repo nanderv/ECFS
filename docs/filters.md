@@ -1,5 +1,5 @@
 core.filter.add("FilterNAME", {#PARAMS#})
-
+=====================
 Params can be of the following structure:
 #"componentname"
  Only add entities with this component
