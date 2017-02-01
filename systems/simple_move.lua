@@ -1,3 +1,4 @@
+-- A system that applies a constant movement to an object.
 local s = {}
 s.functions = {}
 s.functions.update = function(dt)

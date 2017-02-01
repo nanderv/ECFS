@@ -1,3 +1,4 @@
+-- Contains helper functions for the collision system.
 local f = {}
 -- elements of list: {{x=x, y=y, minx=x, miny=y, maxx=x, maxy=y, }}
 

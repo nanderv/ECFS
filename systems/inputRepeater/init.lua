@@ -1,3 +1,5 @@
+-- A half-finished prototype of a gameplay-repeater. Useful for demo-ing and rapid testing.
+-- Should not be used yet; does NOT work.
 local s = {}
 s.mode = ""
 s.functions = {}
@@ -32,7 +34,6 @@ s.functions.update = function(dt)
 			end
 		end
 	end
-
 end
 function core.deepcopy(orig)
     local orig_type = type(orig)

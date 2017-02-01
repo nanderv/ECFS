@@ -1,3 +1,4 @@
+-- A system that prints out whenever an entity gets added or removed from the game.
 local s = {}
 s.functions = {}
 s.functions.update = function(dt)

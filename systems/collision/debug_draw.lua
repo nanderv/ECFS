@@ -1,4 +1,7 @@
+-- Draw debug shapes of the collision system.
 local s = {}
+
+
 s.functions = {}
 s.functions.draw = function(dt)
 	for _,v in ipairs(E.collision) do
@@ -18,6 +21,7 @@ s.functions.draw = function(dt)
 		love.graphics.circle("line", k.position.x, k.position.y, v )
 	end
 end
+
 s.registers = {}
 s.unregisters = {}
 

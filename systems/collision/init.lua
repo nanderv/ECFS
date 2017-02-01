@@ -1,3 +1,4 @@
+-- Collision system
 local s = {}
 local lib = require 'systems.collision.lib'
 s.functions = {}
@@ -17,32 +18,32 @@ local function checkCollision (entity1)
 			if distSQ < (s.circles[entity1] + s.circles[entity2])  then
 				-- Check if the collision is necessary. I think this is slightly slower than the previous check, so that's why this one is later. Not tested.
 				if lib.check_rule(entity1, entity2) then
-				local p1 = rpo[entity1] or lib.rotate_poly(entity1)
-				local p2 = rpo[entity2] or lib.rotate_poly(entity2)
-				rpo[entity1] = p1
-				rpo[entity2] = p2
+					local p1 = rpo[entity1] or lib.rotate_poly(entity1)
+					local p2 = rpo[entity2] or lib.rotate_poly(entity2)
+					rpo[entity1] = p1
+					rpo[entity2] = p2
 
-				-- polygon collision
-				collided = lib.polygon_in_polygon(p1, p2, entity1.position, entity2.position)
+					-- polygon collision
+					collided = lib.polygon_in_polygon(p1, p2, entity1.position, entity2.position)
 
-				-- Actual logic
+					-- Actual logic
 					if collided then
 						lib.execute_if_rule(entity1, entity2, s.prev[entity1])
 					end
 				end
 			end
-
 		end
-
 	end
 	s.prev[entity1] = {x = entity1.position.x, y = entity1.position.y,  rotation = entity1.position.rotation}
-
 end
+
+
 local function reverser(entity1, entity2, pos)
 	entity1.mover.x = -entity1.mover.x
 	entity1.mover.y = -entity1.mover.y
-	--entity1.mover.rotation = -entity1.mover.rotation
 end
+
+
 s.functions.update = function(dt)
 	rpo = {}
 	for k,v in ipairs(E.dynamic_collision) do
@@ -57,6 +58,7 @@ s.functions.update = function(dt)
 
 end
 
+
 s.registers = {}
 s.registers.collision = function(entity)
 	print("Static  collision entity added")
@@ -64,14 +66,15 @@ s.registers.collision = function(entity)
 	s.prev[entity] = {x = entity.position.x, y = entity.position.y,  rotation = entity.position.rotation}
 end
 
+
 s.unregisters = {}
 s.unregisters.collision = function(entity)
 	print("Static  collision entity removed")
+	s.circles[entity] = nil
+	s.prev[entity] = nil
 
 end
 
 
 lib.add_rule("test", "test", core.DoAll(lib.trivial_solve, reverser))
-
-
 return s
