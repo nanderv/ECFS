@@ -32,6 +32,20 @@ core.When is a function that, for each frame, executes func if cfunc results tru
 
 This could be used to say: shoot if left mouse button is clicked.
 
+core.PreFill = function(a, ...)
+-----------------------------
+core.PreFill enables you to prespecify a few of the arguments of a function. Example:
+```
+local function add (x,y)
+	return x + y
+end
+
+local function add1 = core.PreFill(add, 1)
+print(add1(2))
+```
+
+
+
 core.Chain = function(a, ...)
 -----------------------------
 core.Chain is a function that receives a function and arguments, and executes the function using those arguments. It then returns the given arguments. This is used for magical chaining.

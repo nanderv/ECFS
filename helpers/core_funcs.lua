@@ -56,9 +56,7 @@ end
 local fst = 1
 
 
--- Doesn't work yet, sorry
 core.PreFill = function(a, ...)
-	error("You're trying to do something that doesn't work yet")
 	local b = {...}
 	
 	return function(...)
@@ -69,7 +67,7 @@ core.PreFill = function(a, ...)
 		for k,v in ipairs({...}) do
 			z[#z+1]  = v
 		end
-		a(unpack(z))
+		return a(unpack(z))
 	end
 end
 
