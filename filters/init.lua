@@ -1,5 +1,6 @@
 local a = core.filter.add
-a("star", 				{"isStar",	   "position"})
-a("spaceship",			{"engine",	   "position"})
-a("planet", 			{"position",   "-isStar", "-_spaceship"})
-a("hyperspaceship", 	{"_spaceship", "engine.hyperdrive"})
+a("genome", 				{"genome"})
+a("collision", {"collision", "position.x", "position.y", "position.rotation"})
+a("dynamic_collision", {"_collision", "collision.dynamic"})
+a("static_collision", {"_collision", "-_dynamic_collision"})
+a("move", {"position", "mover"})

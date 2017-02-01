@@ -24,6 +24,7 @@ core.filter.remove = function(name)
 	end
 end
 
+
 core.filter.update = function(entity)
 	for _ , name_rules in pairs(R) do
 		local name, rule = name_rules[1], name_rules[2]

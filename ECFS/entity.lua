@@ -3,9 +3,8 @@ local R = core.filter.rules
 local E = E
 local F = F
 local unregisters = core.system.unregisters
-function core.entity.add(entity)
-	core.filter.update(entity)
-end
+
+core.entity.add = core.filter.update
 
 function core.entity.remove(entity)
 	for _ , name_rules in pairs(R) do

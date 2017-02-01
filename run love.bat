@@ -1,0 +1,2 @@
+love . --console
+pause
