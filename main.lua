@@ -13,7 +13,7 @@ fun = require'lib.fun'
 function love.load()
 	core.system.add(require 'systems.test')
 	core.system.add(require 'systems.collision')
-	--core.system.add(require 'systems.collision.debug_draw')
+	core.system.add(require 'systems.collision.debug_draw')
 
 	core.system.add(require 'systems.simple_move')
 
@@ -21,7 +21,7 @@ function love.load()
 	core.entity.add (ent)
 	ent = {collision = {box=true, type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=630, y=290, rotation=0}}
 	core.entity.add (ent)
-	for k = 0, 80000 do
+	for k = 0, 80 do
 	ent = {collision = {type="test", dynamic=false, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=0, y=290+200*k, rotation=0}}
 	core.entity.add (ent)
 	end

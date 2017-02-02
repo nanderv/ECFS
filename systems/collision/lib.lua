@@ -19,7 +19,7 @@ end
 
 -- assume: has at least one point. Important: does NOT auto-update when polygon rotates.
 f.aabb_around = function(entity, list)
-	local poly = entity.collision.polygon
+	local poly = core.rotate_polygon(entity.collision.polygon, entity.position.rotation)
 	local x,y = entity.position.x, entity.position.y
 	local maxx = poly[1].x
 	local minx = poly[1].x

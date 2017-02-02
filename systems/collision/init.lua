@@ -15,29 +15,11 @@ local function checkCollision (entity1)
 	local shape1 = nil
 	local x1, y1 = entity1.position.x, entity1.position.y
 	shape1 = s.circles[entity1]
+	-- Use bump to check if entities are near enough. It uses either a circle around it or a box around it. The circle is rotation-safe, the box isn't.
 	local _, _, cols, len = world:move(entity1, entity1.position.x-shape1,entity1.position.y-shape1)
 	for _,b in ipairs(cols) do
 		local entity2 = b.other
 		if entity1 ~= entity2  then
-			local shape2 = nil
-			if entity2.collision.box then
-				shape2 = s.boxes[entity2]
-			else
-				shape2 = s.circles[entity2]
-			end
-
-			local maybe = false
-
-
-			local dx = x1 - entity2.position.x
-			local dy = y1 - entity2.position.y
-			local distSQ = (dx * dx + dy * dy)
-			maybe = distSQ < (shape1 + s.circles[entity2])*(shape1 + s.circles[entity2])
-
-
-			-- Trivial check: check if squared distances are similar
-			
-			if maybe  then
 				-- Check if the collision is necessary. I think this is slightly slower than the previous check, so that's why this one is later. Not tested for speed.
 				if lib.check_rule(entity1, entity2) then
 					local p1 = rpo[entity1] or lib.rotate_poly(entity1)
@@ -54,7 +36,6 @@ local function checkCollision (entity1)
 						lib.execute_if_rule(entity1, entity2, s.prev[entity1])
 					end
 				end
-			end
 		end
 	end
 	s.prev[entity1] = {x = entity1.position.x, y = entity1.position.y,  rotation = entity1.position.rotation}
