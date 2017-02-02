@@ -2,7 +2,7 @@
 local f = {}
 -- elements of list: {{x=x, y=y, minx=x, miny=y, maxx=x, maxy=y, }}
 
--- Get a circle around an entity.
+-- Get a circle around an entity. Stays valid when polygon rotates around origin (trivially true)
 f.circle_around = function(entity, list)
 	local poly = entity.collision.polygon
 	local x,y = entity.position.x, entity.position.y
@@ -17,13 +17,30 @@ f.circle_around = function(entity, list)
 	return x, y, math.sqrt(radius)
 end
 
-local rules = {}
+-- assume: has at least one point. Important: does NOT auto-update when polygon rotates.
+f.aabb_around = function(entity, list)
+	local poly = entity.collision.polygon
+	local x,y = entity.position.x, entity.position.y
+	local maxx = poly[1].x
+	local minx = poly[1].x
+	local maxy = poly[1].y
+	local miny = poly[1].y
+	for k,v in ipairs(poly) do
+		maxx = math.max(maxx, v.x)
+		minx = math.min(minx, v.x)
+		maxy = math.max(maxy, v.y)
+		miny = math.min(miny, v.y)
+	end
+	list[entity] = {minx = minx, miny = miny, maxx = maxx, maxy = maxy}
+	return minx, miny, maxx, maxy
+end
 
+
+local rules = {}
 f.add_rule = function(type1, type2, func)
 	rules[type1] = rules[type1] or {}
 	rules[type1][type2] = func
 end
-
 f.clear_rules = function()
 	rules = {}
 end
