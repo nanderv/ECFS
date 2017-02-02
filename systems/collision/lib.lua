@@ -19,7 +19,10 @@ end
 
 -- assume: has at least one point. Important: does NOT auto-update when polygon rotates.
 f.aabb_around = function(entity, list)
-	local poly = core.rotate_polygon(entity.collision.polygon, entity.position.rotation)
+	local poly = {}
+	for k,v in ipairs(entity.collision.polygon) do
+		poly[#poly+1] =core.rotate_point(v, entity.position.rotation)
+	end
 	local x,y = entity.position.x, entity.position.y
 	local maxx = poly[1].x
 	local minx = poly[1].x
@@ -32,7 +35,7 @@ f.aabb_around = function(entity, list)
 		miny = math.min(miny, v.y)
 	end
 	list[entity] = {minx = minx, miny = miny, maxx = maxx, maxy = maxy}
-	return minx, miny, maxx, maxy
+	return x,y,minx, miny, maxx, maxy
 end
 
 

@@ -19,7 +19,7 @@ function love.load()
 
 	local ent = {collision = {type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=250, y=250, rotation=0}, mover = {x=100, y=0, rotation =  1}}
 	core.entity.add (ent)
-	ent = {collision = {box=true, type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=630, y=290, rotation=0}}
+	ent = {collision = {box=false, type="test", polygon = {{x=-50,y=-50},{x=50,y=-50},{x=50,y=50},{x=-50,y=50}}}, position = {x=630, y=290, rotation=0}}
 	core.entity.add (ent)
 	for k = 0, 80 do
 	ent = {collision = {type="test", dynamic=false, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=0, y=290+200*k, rotation=0}}
