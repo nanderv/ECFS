@@ -10,7 +10,7 @@ CIRC = s.circles
 BOXES = s.boxes
 local rpo = {}
 s.prev = {}
-GETWORLD = world
+
 local function checkCollision (entity1)
 	local shape1 = nil
 	local x1, y1 = entity1.position.x, entity1.position.y
@@ -33,7 +33,6 @@ local function checkCollision (entity1)
 						p2  = lib.rotate_poly(entity2)
 						rpo[entity2] = p2
 					end
-
 
 					-- polygon collision
 					local collided = lib.polygon_in_polygon(p1, p2, entity1.position, entity2.position)
