@@ -1,7 +1,7 @@
 love.math.setRandomSeed( 300 )
-math.random()
-math.random()
-math.random()
+
+CONFIG = {}
+UI_STATE = {}
 
 pprint = require 'lib.pprint'
 
@@ -12,6 +12,7 @@ require 'inputoutput.keyboard_input'
 fun = require'lib.fun'
 
 function love.load()
+
 	core.system.add(require 'systems.test')
 	core.system.add(require 'systems.collision')
 	core.system.add(require 'systems.collision.debug_draw')
@@ -36,7 +37,9 @@ function love.draw()
 			v.functions.draw()
 		end
 	end
+	
 	love.graphics.print(love.timer.getFPS(), 10,10)
+	love.graphics.print(collectgarbage('count'), 50,10)
 end
 
 function reverse(map)
