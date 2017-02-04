@@ -1,4 +1,3 @@
---core.When("!", "A", core.keyboard.isDown("y") , printCount())
 local Down  =  core.keyboard.isDown
 local When  = core.When 
 local While = core.While
@@ -11,6 +10,7 @@ local function doMoveUp(entity)
 		entity.position.y = entity.position.y - dt * 100
 	end
 end
+
 local function doMoveDown(entity)
 	return function (dt)
 		entity.position.y = entity.position.y + dt * 100
