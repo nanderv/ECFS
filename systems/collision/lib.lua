@@ -70,7 +70,7 @@ local function point_in_polygon(polygon, point, position, position2)
   local y = point.y+position2.y-position.y
   local x = point.x+position2.x-position.x
   for k,v in ipairs(polygon) do
-  	w = polygon[prev]
+  	local w = polygon[prev]
   	if (v.y < y and w.y >= y) or (w.y < y and v.y >= y) then
   		if (v.x + (y - v.x) / (w.x-v.x)*(w.x-v.x) < x) then
   			odd = not odd
@@ -83,17 +83,15 @@ end
 
 
 function segmentIntersects(x1, y1, x2, y2, x3, y3, x4, y4)
-   d = (y4-y3)*(x2-x1)-(x4-x3)*(y2-y1)
-   Ua_n = ((x4-x3)*(y1-y3)-(y4-y3)*(x1-x3))
-   Ub_n = ((x2-x1)*(y1-y3)-(y2-y1)*(x1-x3))
+   local d = (y4-y3)*(x2-x1)-(x4-x3)*(y2-y1)
+   local Ua_n = ((x4-x3)*(y1-y3)-(y4-y3)*(x1-x3))
+   local Ub_n = ((x2-x1)*(y1-y3)-(y2-y1)*(x1-x3))
    if d == 0 then
-       --if Ua_n == 0 and Ua_n == Ub_n then
-       --    return true
-       --end
+
        return false
    end
-   Ua = Ua_n / d
-   Ub = Ub_n / d
+   local Ua = Ua_n / d
+   local Ub = Ub_n / d
    if Ua >= 0 and Ua <= 1 and Ub >= 0 and Ub <= 1 then
        return true
    end
@@ -151,7 +149,6 @@ f.rotate_poly = function(entity)
 end
 
 f.trivial_solve = function (entity1, entity2, prev)
-
 	entity1.position = prev
 end
 

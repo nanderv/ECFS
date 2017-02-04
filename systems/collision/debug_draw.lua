@@ -20,16 +20,7 @@ s.functions.draw = function(dt)
 		love.graphics.polygon("fill", unpack(arr))
 	end
 
-	for k,v in pairs (CIRC) do
-
-		love.graphics.circle("line", k.position.x, k.position.y, v )
-	end
-
-	for k,v in pairs (BOXES) do
-
-		love.graphics.rectangle("line", k.position.x + v.minx, k.position.y + v.miny, v.maxx - v.minx, v.maxy - v.miny)
-	end
-end
+end 
 
 s.registers = {}
 s.unregisters = {}

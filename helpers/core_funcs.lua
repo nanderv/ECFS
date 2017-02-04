@@ -28,24 +28,39 @@ core.Not = function(cfunc)
 	end
 end
 
+function core.Rem_Events(id1, id2)
+	if id2 then
+		for k,v in pairs(core.events[id1][id2]) do
+			core.events[id1][id2][k] = nil
+		end
+	else
+		for l,w in pairs(core.events[id1]) do
+			for k,v in pairs(core.events[w]) do
+				core.events[id1][l][k] = nil
+			end
+
+		end
+
+	end
+end
 core.While = function(id1, id2, cfunc, func)
 	core.events[id1] =  core.events[id1]  or {}
 	core.events[id1][id2]  = core.events[id1][id2] or {}
-	core.events[id1][id2][#core.events[id1][id2]+1] =  function()
+	core.events[id1][id2][#core.events[id1][id2]+1] =  function(dt)
 		if cfunc() then
-			func()
+			func(dt)
 		end
 	end
 end
-
+core.events = {}
 core.When = function(id1, id2, cfunc, func)
 	core.events[id1] =  core.events[id1]  or {}
 	local a = false
 	core.events[id1][id2]  = core.events[id1][id2] or {}
-	core.events[id1][id2][#core.events[id1][id2]+1] =  function()
+	core.events[id1][id2][#core.events[id1][id2]+1] =  function(dt)
 		if cfunc() then
 			if not a then
-				func()
+				func(dt)
 			end
 			a = true
 		else
@@ -73,8 +88,8 @@ end
 
 
 core.Chain = function(a, ...)
-	a(unpack({...}))
-	return unpack({...})
+	a(...)
+	return ...
 end
 
 
@@ -83,7 +98,7 @@ core.DoAll = function(...)
 
 	return function(...)
 		for k,v in ipairs(b) do
-			v(unpack({...}))
+			v(...)
 		end
 	end
 end

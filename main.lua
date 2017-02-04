@@ -8,21 +8,23 @@ pprint = require 'lib.pprint'
 require 'helpers.core_funcs'
 require 'ECFS'
 require 'filters'
-
+require 'inputoutput.keyboard_input'
 fun = require'lib.fun'
+
 function love.load()
 	core.system.add(require 'systems.test')
 	core.system.add(require 'systems.collision')
 	core.system.add(require 'systems.collision.debug_draw')
-
+	core.system.add(require 'systems.input.keyboard')
 	core.system.add(require 'systems.simple_move')
 
-	local ent = {collision = {type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=250, y=250, rotation=0}, mover = {x=100, y=0, rotation =  1}}
+	local ent = {keyboardcontrols = true, collision = {type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=250, y=250, rotation=0}}
 	core.entity.add (ent)
-	ent = {collision = {box=false, type="test", polygon = {{x=-50,y=-50},{x=50,y=-50},{x=50,y=50},{x=-50,y=50}}}, position = {x=630, y=290, rotation=0}}
+
+	ent = {collision = {box=true, type="test", polygon = {{x=-50,y=-50},{x=50,y=-50},{x=50,y=500},{x=-50,y=500}}}, position = {x=630, y=290, rotation=0}}
 	core.entity.add (ent)
-	for k = 0, 80 do
-	ent = {collision = {type="test", dynamic=false, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=0, y=290+200*k, rotation=0}}
+	for k = 0, 40 do
+	ent = {collision = {type="test", box=true, dynamic=false, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=0, y=290+200*k, rotation=0}}
 	core.entity.add (ent)
 	end
 
@@ -41,9 +43,24 @@ function reverse(map)
 	return fun.foldl(function(acc, x) return fun.op.insert(acc, map[x], x) end, {},  fun.op.keys(map))
 end
 function love.update(dt)
+	--- Events
+
+	-- This looks like lots of loops, but it really isn't .
+	for k,v in pairs(core.events) do
+		for l,w in pairs(v) do
+			for m,x in ipairs(w) do
+				x(dt)
+			end
+		end
+	end
+
+	-- update functions
+
 	if core.system.functions.update then
 		for _,v in pairs(core.system.functions.update)do
 			v.functions.update(dt)
 		end
 	end
+
+
 end
