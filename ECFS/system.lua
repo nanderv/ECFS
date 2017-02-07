@@ -5,9 +5,11 @@ core.system.unregisters = {}
 local functions = core.system.functions
 local registers = core.system.registers
 local unregisters=core.system.unregisters
+core.systems = {}
 core.system.add = function(system)
 
 	-- Add functionality of system to respected lists
+	core.systems[system] = system
 	if system.functions then
 		for k,v in pairs(system.functions) do
 			if not functions[k] then

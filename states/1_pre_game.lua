@@ -2,8 +2,7 @@ local GS = require 'lib.gamestate'
 local ctx = GS.new()
 
 function ctx:enter(from)
-  ctx.from = from -- record previous state
-  aa = false
+  resources = {}
   
 end
 function ctx:leave()
@@ -31,3 +30,4 @@ end
 
 
 return ctx
+

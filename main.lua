@@ -1,8 +1,7 @@
-love.math.setRandomSeed( 300 )
 
 CONFIG = {}
 UI_STATE = {}
-
+SUPERSTATE = {} -- Superstate = the all game-information 
 pprint = require 'lib.pprint'
 
 require 'helpers.core_funcs'
@@ -19,13 +18,20 @@ function love.load()
 	core.system.add(require 'systems.input.keyboard')
 	core.system.add(require 'systems.simple_move')
 
-	local ent = {keyboardcontrols = true, collision = {type="test", polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=250, y=250, rotation=0}}
+	local ent = {keyboardcontrols = true, collision = {type="test", box=true, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=250, y=250, rotation=0}}
 	core.entity.add (ent)
 
 	ent = {collision = {box=true, type="test", polygon = {{x=-50,y=-50},{x=50,y=-50},{x=50,y=500},{x=-50,y=500}}}, position = {x=630, y=290, rotation=0}}
 	core.entity.add (ent)
 	for k = 0, 40 do
-	ent = {collision = {type="test", box=true, dynamic=false, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}}, position = {x=0, y=290+200*k, rotation=0}}
+	ent = {collision = {type="test",
+						 box=true, dynamic=false,
+						 polygon = {
+							 {x=-100,y=0},
+							 {x=0,y=100},
+							 {x=100,y=0},
+							 {x=0,y=-100}}},
+						 position = {x=0, y=290+200*k, rotation=0}}
 	core.entity.add (ent)
 	end
 
@@ -58,12 +64,9 @@ function love.update(dt)
 	end
 
 	-- update functions
-
 	if core.system.functions.update then
-		for _,v in pairs(core.system.functions.update)do
+		for _,v in pairs(core.system.functions.update) do
 			v.functions.update(dt)
 		end
 	end
-
-
 end

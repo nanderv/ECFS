@@ -22,6 +22,11 @@ core.Not negates the result of a function.
 
 core.While = function(id1, id2, cfunc, func)
 --------------------------------------------
+We store the Events using two identifiers.
+id1: First identifier. often you want to use the entity here.
+
+id2: Second identifier. Often you want to use a string describing the functionality here.
+
 core.While is a function that, for each frame, executes func if cfunc results true (for that frame).
 
 This could be used to say: when the key "w" is down, move up.
