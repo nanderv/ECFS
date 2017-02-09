@@ -26,22 +26,16 @@ function ctx:leave()
 end
 
 function ctx:update(dt)
-	      -- This looks like lots of loops, but it really isn't .
-
-    dt = 0
-    ctx.from.update(0)
-
-
+  -- This looks like lots of loops, but it really isn't .
+    ctx.from:update(0)
 end
 
 function ctx:draw()
 	ctx.from.draw()
-
-	if core.system.functions.draw then
-		for _,v in pairs(core.system.functions.draw)do
-			v.functions.draw()
-		end
-	end
+	love.graphics.setColor(0,0,0,128)
+	love.graphics.rectangle("fill",0,0,love.graphics.getWidth( ),love.graphics.getHeight( ))
+	love.graphics.setColor(255,255,255,255)
+	love.graphics.print("Press esc to continue playing",255,255)
 end
 
 return ctx

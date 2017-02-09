@@ -6,17 +6,15 @@ local GS = require 'lib.gamestate'
 local ctx = GS.new()
 local function a ()
 	local PAUSE = require 'states.4P_pause'
-
 	core.Rem_Events("PAUSE","PAUSE")
 	Gamestate.push(PAUSE)
 end
+
 function ctx:enter(from)
-
-  ctx.from = from -- record previous state
-  aa = false  
-  print("ADDING GAMELOOP")
+	ctx.from = from -- record previous state
+	aa = false  
+	print("ADDING GAMELOOP")
 	core.keyboard.whenDown("PAUSE", "PAUSE", "escape", a)
-
 end
 
 function ctx:leave()
