@@ -49,7 +49,7 @@ function ctx:draw()
   love.graphics.setColor(5, 5, 5,180)
   love.graphics.rectangle("fill",0,0,width,height)
   love.graphics.setColor(255,255,255,255)
-
+  love.graphics.print("Loading resources", 300, 300)
 end
 
 return ctx

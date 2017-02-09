@@ -7,7 +7,7 @@ function ctx:enter(from)
   ctx.from = from -- record previous state
   core.events = {}
   print("SETUP")
-  core.keyboard.whenDown(ctx, "A", "a", core.DoAll(core.PreFill(Gamestate.switch, LOAD), core.PreFill(print, "LEAVING")))
+  core.keyboard.whenDown(ctx, "A", "1", core.DoAll(core.PreFill(Gamestate.switch, LOAD), core.PreFill(print, "LEAVING")))
 
 end
 
@@ -33,6 +33,7 @@ function ctx:draw()
   love.graphics.setColor(5, 5, 5,180)
   love.graphics.rectangle("fill",0,0,width,height)
   love.graphics.setColor(255,255,255,255)
+  love.graphics.print("Press 1 to start", 300,300)
  
 end
 
