@@ -4,7 +4,9 @@ local s = {}
 
 s.functions = {}
 s.functions.draw = function(dt)
-	
+	if not E.collision then
+		return
+	end
 	for _,v in ipairs(E.collision) do
 		
 		local arr = {}

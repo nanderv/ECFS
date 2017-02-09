@@ -2,6 +2,9 @@
 local s = {}
 s.functions = {}
 s.functions.update = function(dt)
+	if not E.move then
+		return
+	end
 	dt = dt 
 	for k,v in ipairs(E.move) do 
 		v.position.x = v.position.x + dt * v.mover.x

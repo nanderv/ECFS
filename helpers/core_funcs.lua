@@ -1,4 +1,5 @@
 core = core or {}
+core.events = core.events or {}
 core.And = function(cfuncs)
 	return function()
 		for k,v in ipairs(cfuncs) do
@@ -40,8 +41,10 @@ end
 
 function core.Rem_Events(id1, id2)
 	if id2 then
+		if core.events[id1] and core.events[id1][id2] then
 		for k,v in pairs(core.events[id1][id2]) do
 			core.events[id1][id2][k] = nil
+		end
 		end
 	else
 		for l,w in pairs(core.events[id1]) do
@@ -55,8 +58,9 @@ end
 
 core.While = function(id1, id2, cfunc, func)
 	core.events[id1] =  core.events[id1]  or {}
-	local me = #core.events[id1][id2]+1
 	core.events[id1][id2]  = core.events[id1][id2] or {}
+
+	local me = #core.events[id1][id2]+1
 	core.events[id1][id2][#core.events[id1][id2] + 1] =  function(dt)
 		if cfunc(dt) then
 			func(dt)
@@ -65,7 +69,6 @@ core.While = function(id1, id2, cfunc, func)
 end
 
 
-core.events = {}
 core.When = function(id1, id2, cfunc, func)
 	core.events[id1] =  core.events[id1]  or {}
 	local a = false

@@ -1,12 +1,12 @@
 core.entity = {}
-local R = core.filter.rules
-local E = E
-local F = F
+
 local unregisters = core.system.unregisters
 
 core.entity.add = core.filter.update
 
 function core.entity.remove(entity)
+	local R = core.filter.rules
+
 	for _ , name_rules in pairs(R) do
 		local name = name_rules[1]
 		local ind = F[name][entity]

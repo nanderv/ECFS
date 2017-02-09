@@ -1,11 +1,11 @@
 core.filter = {}
 core.filter.rules = {}
-local R = core.filter.rules
+
 E = {} -- E is the entity lists, so E.walls is going to contain all walls.
 F = {} -- F is the entity list, but as a dictionary
-local E = E
-local F = F
+
 core.filter.add = function(name, rules)
+	local R = core.filter.rules
 	E[name] = {}
 	F[name] = {}
 	R[#R+1] = {name, rules}
@@ -13,6 +13,8 @@ end
 
 -- Is this function necessary / wanted?
 core.filter.remove = function(name)
+	local R = core.filter.rules
+	local name = name[1]
 	E[name] = nil
 	F[name] = nil
 	for k,v in ipairs(R) do
@@ -22,10 +24,12 @@ core.filter.remove = function(name)
 			break
 		end
 	end
+
 end
 
 
 core.filter.update = function(entity)
+	local R = core.filter.rules
 	for _ , name_rules in pairs(R) do
 		local name, rule = name_rules[1], name_rules[2]
 		local all = true
