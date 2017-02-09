@@ -22,7 +22,7 @@ function ctx:enter(from)
 
   --  Clear events
   core.events = {}
-  core.keyboard.whenDown(ctx, "A", "a", core.DoAll(core.PreFill(Gamestate.switch, SETUP), core.PreFill(print, "LEAVING")))
+  
 
 end
 
@@ -40,6 +40,7 @@ function ctx:update(dt)
         end
       end
     end
+   core.DoAll(core.PreFill(Gamestate.switch, SETUP), core.PreFill(print, "LEAVING"))()
 end
 
 function ctx:draw()

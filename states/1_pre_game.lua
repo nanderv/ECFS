@@ -6,15 +6,14 @@ local ctx = GS.new()
 core = core or {}
 core.events = core.events or {}
 function ctx:enter(from)
-	core.keyboard.whenDown(ctx, "A", "a", core.PreFill(Gamestate.switch, MENU))
-  resources = {}
-  
-  print("ENTERING MENU")
+	resources = {}
+
+	print("ENTERING MENU")
 
 
 end
 function ctx:leave()
-  
+
 end
 function ctx:update(dt)
 
@@ -33,15 +32,16 @@ function ctx:update(dt)
 			v.functions.update(dt)
 		end
 	end
+	 core.PreFill(Gamestate.switch, MENU)()
 end
 
 
 function ctx:draw()
-  local width = love.graphics.getWidth()
-  local height = love.graphics.getHeight()
-  love.graphics.setColor(5, 5, 5,180)
-  love.graphics.rectangle("fill",0,0,width,height)
-  love.graphics.setColor(255,255,255,255)
+	local width = love.graphics.getWidth()
+	local height = love.graphics.getHeight()
+	love.graphics.setColor(5, 5, 5,180)
+	love.graphics.rectangle("fill",0,0,width,height)
+	love.graphics.setColor(255,255,255,255)
 end
 
 

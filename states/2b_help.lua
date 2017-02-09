@@ -24,8 +24,6 @@ function ctx:update(dt)
 end
 
 function ctx:draw()
-
-
   local width = love.graphics.getWidth()
   local height = love.graphics.getHeight()
   love.graphics.setColor(5, 5, 5,180)

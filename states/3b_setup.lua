@@ -33,6 +33,8 @@ function ctx:draw()
   love.graphics.setColor(5, 5, 5,180)
   love.graphics.rectangle("fill",0,0,width,height)
   love.graphics.setColor(255,255,255,255)
+    love.graphics.print("No character setup needed", 300,250)
+
   love.graphics.print("Press 1 to start", 300,300)
  
 end

@@ -4,11 +4,19 @@ local GS = require 'lib.gamestate'
 
 -- {{render = function(), chooser = function(), executer = function()}}
 local ctx = GS.new()
+local function a ()
+	local PAUSE = require 'states.4P_pause'
 
+	core.Rem_Events("PAUSE","PAUSE")
+	Gamestate.push(PAUSE)
+end
 function ctx:enter(from)
+
   ctx.from = from -- record previous state
   aa = false  
   print("ADDING GAMELOOP")
+	core.keyboard.whenDown("PAUSE", "PAUSE", "escape", a)
+
 end
 
 function ctx:leave()
@@ -16,6 +24,9 @@ function ctx:leave()
 end
 
 function ctx:update(dt)
+	if not dt then
+		dt = 0
+	end
 	      -- This looks like lots of loops, but it really isn't .
     for k,v in pairs(core.events) do
       for l,w in pairs(v) do
