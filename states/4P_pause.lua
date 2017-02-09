@@ -10,14 +10,24 @@ local function a ()
 	local GAMELOOP = require 'states.4_gameloop'
 	core.Rem_Events("UNPAUSE","UNPAUSE")
 
-	Gamestate.push(GAMELOOP)
+	Gamestate.pop()
+	Gamestate.switch(GAMELOOP)
+end
+local function b()
+	local MENU = require 'states.2_menu'
+	core.Rem_Events("UNPAUSE","UNPAUSE")
+
+	Gamestate.pop()
+	Gamestate.switch(MENU)
 end
 function ctx:enter(from)
 
   ctx.from = from -- record previous state
   aa = false  
   print("PAUSE")
+
 	core.keyboard.whenDown("UNPAUSE", "UNPAUSE", "escape", a)
+	core.keyboard.whenDown("UNPAUSE", "UNPAUSE", "1", b)
 
 end
 

@@ -11,10 +11,10 @@ function ctx:enter(from)
   for k, v in ipairs(E.A) do
     core.entity.remove(v)
   end
-  
+
+
   core.filter.rules = {}
   F = {}
-  
 
   E = {} -- E is the entity lists, so E.walls is going to contain all walls.
   F = {} -- F is the entity list, but as a dictionary 
@@ -22,7 +22,8 @@ function ctx:enter(from)
 
   --  Clear events
   core.events = {}
-  
+  core.filter.add("A",{})  
+
 
 end
 
