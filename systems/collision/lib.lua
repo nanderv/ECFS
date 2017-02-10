@@ -72,7 +72,7 @@ local function point_in_polygon(polygon, point, position, position2)
   for k,v in ipairs(polygon) do
   	local w = polygon[prev]
   	if (v.y < y and w.y >= y) or (w.y < y and v.y >= y) then
-  		if (v.x + (y - v.x) / (w.x-v.x)*(w.x-v.x) < x) then
+  		if x < ((w.x - v.x) * (y - v.y)) / ((w.y - v.y)) + v.x  then
   			odd = not odd
   		end
   	end
