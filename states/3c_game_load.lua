@@ -14,11 +14,12 @@ function ctx:enter(from)
 	core.system.add(require 'systems.collision.debug_draw')
 	core.system.add(require 'systems.input.keyboard')
 	core.system.add(require 'systems.simple_move')
+	core.system.add(require 'systems.helpers.relative_position')
 
 	local ent = {keyboardcontrols = true, collision = {type="test", box=true, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=250, y=250, rotation=0}}
 	core.entity.add (ent)
 
-	ent = {collision = {box=true, type="test", polygon = {{x=-50,y=-50},{x=50,y=-50},{x=50,y=500},{x=-50,y=500}}}, position = {x=630, y=290, rotation=0}}
+	ent = {relativeto = {id= core.get_id(ent), position={x=200,y=2, rotation=1}}, collision = {box=true, type="test", polygon = {{x=-50,y=-50},{x=50,y=-50},{x=50,y=500},{x=-50,y=500}}}, position = {x=1000, y=0, rotation=0}}
 	core.entity.add (ent)
 	for k = 0, 40 do
 	ent = {collision = {type="test",

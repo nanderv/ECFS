@@ -14,12 +14,8 @@ STATES[1] = require 'states.1_pre_game'
 function love.load()
     Gamestate.registerEvents()
  	Gamestate.switch(STATES[1])
-	
-
-
 end
 function love.draw()
-
 	love.graphics.print(love.timer.getFPS(), 10,10)
 	love.graphics.print(collectgarbage('count'), 50,10)
 end
@@ -27,8 +23,9 @@ end
 function reverse(map)
 	return fun.foldl(function(acc, x) return fun.op.insert(acc, map[x], x) end, {},  fun.op.keys(map))
 end
+local time = love.timer.getTime( )
+
 function love.update(dt)
 	--- Events
-
-
+	--time = time + 1
 end
