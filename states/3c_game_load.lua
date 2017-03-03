@@ -16,10 +16,10 @@ function ctx:enter(from)
 	core.system.add(require 'systems.simple_move')
 	core.system.add(require 'systems.helpers.relative_position')
 
-	local ent = {keyboardcontrols = true, collision = {type="test", box=true, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=250, y=250, rotation=0}}
+	local ent = {keyboardcontrols = true, collision = {type="test", box=true, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}, position = {x=700, y=250, rotation=0}}
 	core.entity.add (ent)
-
-	ent = {relativeto = {id= core.get_id(ent), position={x=200,y=2, rotation=1}}, collision = {box=true, type="test", polygon = {{x=-50,y=-50},{x=50,y=-50},{x=50,y=500},{x=-50,y=500}}}, position = {x=1000, y=0, rotation=0}}
+	
+	local ent = {relativeto = {id= core.get_id(ent), position={x=-200,y=-100, rotation=0.1}}, collision = {box=false, type="test", dynamic=true, polygon = {{x=-50,y=-50},{x=50,y=-50},{x=50,y=500},{x=-50,y=500}}}, position = {x=200, y=0, rotation=1}}
 	core.entity.add (ent)
 	for k = 0, 40 do
 	ent = {collision = {type="test",
