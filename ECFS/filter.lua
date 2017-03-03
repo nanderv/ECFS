@@ -37,6 +37,10 @@ end
 
 core.filter.update = function(entity)
 	-- Add the entity to the ID-lists
+ 	while(id_to_entity[id_counter]) do
+		id_counter = id_counter + 10000
+	end
+
 	if not F[entity] then
 		id_to_entity[id_counter] = entity
 		entity_to_id[entity]     = id_counter
