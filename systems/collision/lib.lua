@@ -55,12 +55,24 @@ end
 
 f.check_rule = function(entity1, entity2)
 	if rules[entity1.collision.type] and rules[entity1.collision.type][entity2.collision.type] then
-		 return not not rules[entity1.collision.type][entity2.collision.type]
+		 return true
 	end
+	if rules[entity2.collision.type] and rules[entity2.collision.type][entity1.collision.type] then
+		 return true
+	end
+	return false
 end
 
 f.execute_if_rule = function(entity1, entity2, prev)
-	return rules[entity1.collision.type][entity2.collision.type](entity1, entity2, prev)
+	local f = rules[entity1.collision.type][entity2.collision.type]
+	if f then
+		return f(entity1, entity2, prev)
+	end
+	local f = rules[entity2.collision.type][entity1.collision.type]
+	if f then
+		return f(entity2, entity1, prev)
+	end
+	print("ERROR, NO FUNC FOUND")
 end
 
 local function point_in_polygon(polygon, point, position, position2)

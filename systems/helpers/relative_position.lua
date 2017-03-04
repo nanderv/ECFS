@@ -11,11 +11,7 @@ s.functions.update = function(dt)
 		pprint(v)
 	end
 end
-s.functions.draw = function(dt)
-	for k,v in ipairs(E.relative_position) do
-		love.graphics.print("A", v.position.x, v.position.y)
-	end
-end
+
 s.functions.reset = function()
 	prevposses = {}
 end
