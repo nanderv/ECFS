@@ -24,6 +24,7 @@ local function checkCollision (entity1)
 	for _,b in ipairs(cols) do
 		local entity2 = b.other
 		if entity1 ~= entity2  then
+			print("HERE")
 
 			-- Check if the collision is necessary. I think this is slightly slower than the previous check, so that's why this one is later. Not tested for speed.
 			if lib.check_rule(entity1, entity2) then
@@ -55,6 +56,7 @@ end
 s.functions.update = function(dt)
 	rpo = {}
 	for k,v in ipairs(E.dynamic_collision) do
+
 		checkCollision(v)
 	end
 	for k,v in ipairs(E.static_collision) do
@@ -67,6 +69,7 @@ end
 
 s.functions.reset = function()
 	lib = scripts.systems.collision.lib
+	lib.add_rule ("test", "test", lib.trivial_solve)
 
 	world = bump.newWorld(50)
 	s.circles = {}

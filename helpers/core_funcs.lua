@@ -39,29 +39,10 @@ core.Not = function(cfunc)
 end
 
 
-function core.Rem_Events(id1, id2)
-	if id2 then
-		if core.events[id1] and core.events[id1][id2] then
-		for k,v in pairs(core.events[id1][id2]) do
-			core.events[id1][id2][k] = nil
-		end
-		end
-	else
-		for l,w in pairs(core.events[id1]) do
-			for k,v in pairs(core.events[w]) do
-				core.events[id1][l][k] = nil
-			end
-		end
-	end
-end
 
 
-core.While = function(id1, id2, cfunc, func)
-	core.events[id1] =  core.events[id1]  or {}
-	core.events[id1][id2]  = core.events[id1][id2] or {}
-
-	local me = #core.events[id1][id2]+1
-	core.events[id1][id2][#core.events[id1][id2] + 1] =  function(dt)
+core.While = function(cfunc, func)
+	return  function(dt)
 		if cfunc(dt) then
 			func(dt)
 		end
@@ -69,12 +50,9 @@ core.While = function(id1, id2, cfunc, func)
 end
 
 
-core.When = function(id1, id2, cfunc, func)
-	core.events[id1] =  core.events[id1]  or {}
+core.When = function(cfunc, func)
 	local a = false
-	core.events[id1][id2]  = core.events[id1][id2] or {}
-	local me = #core.events[id1][id2]+1
-	core.events[id1][id2][#core.events[id1][id2] + 1] =  function(dt)
+	return  function(dt)
 		if cfunc(dt) then
 			if not a then
 				func(dt)
@@ -87,8 +65,32 @@ core.When = function(id1, id2, cfunc, func)
 
 end
 local fst = 1
+local lists = {pre = {}, post = {}}
+function core.add_event(list_name, event)
+	lists[list_name][#lists[list_name]+1] = event
+end
+function core.get_list(list_name)
+	return lists[list_name]
+end
 
-
+local handlers = {}
+function core.addHandler(name, func)
+	handlers[name] = handlers[name]  or {}
+	handlers[name][#handlers[name]+1] = func
+end
+function core.runHandlers(id, event, list_name)
+	local name = event.name
+	if handlers[name] then
+		for k,v in ipairs(handlers[name]) do
+			lists[list_name][#lists[list_name]+1]  = v(event, id)
+		end
+	else
+		print("No handlers for event ".. event.name)
+		print(event)
+	end
+	lists[list_name][id] = lists[list_name][#lists[list_name]]
+	lists[list_name][#lists[list_name]] = nil
+end
 core.PreFill = function(a, ...)
 	local b = {...}
 	
