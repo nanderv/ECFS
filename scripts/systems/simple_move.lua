@@ -1,7 +1,5 @@
 -- A system that applies a constant movement to an object.
-local s = {}
-s.functions = {}
-s.functions.update = function(dt)
+return  function(dt)
 	if not E.move then
 		return
 	end
@@ -12,7 +10,4 @@ s.functions.update = function(dt)
 		v.position.rotation = v.position.rotation + dt * v.mover.rotation
 	end
 end
-s.registers = {}
-s.unregisters = {}
 
-return s

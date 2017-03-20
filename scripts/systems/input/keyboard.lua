@@ -1,3 +1,4 @@
+if false then
 local Down  =  core.keyboard.isDown
 local When  = core.When 
 local While = core.While
@@ -44,3 +45,5 @@ s.unregisters.key_controls = function(entity)
 end
 
 return s
+
+end
