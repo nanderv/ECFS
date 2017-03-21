@@ -2,7 +2,7 @@
 local s = {}
 local bump = require 'lib.bump'
 local world = bump.newWorld(50)
-local lib = require 'systems.collision.lib'
+local lib = {}
 s.functions = {}
 s.circles = {}
 s.boxes = {}
@@ -24,6 +24,7 @@ local function checkCollision (entity1)
 	for _,b in ipairs(cols) do
 		local entity2 = b.other
 		if entity1 ~= entity2  then
+			print("HERE")
 
 			-- Check if the collision is necessary. I think this is slightly slower than the previous check, so that's why this one is later. Not tested for speed.
 			if lib.check_rule(entity1, entity2) then
@@ -52,17 +53,10 @@ local function checkCollision (entity1)
 end
 
 
-local function reverser(entity1, entity2, pos)
-	if entity1.mover then
-		entity1.mover.x = -entity1.mover.x
-		entity1.mover.y = entity1.mover.y+2
-	end
-end
-
-
 s.functions.update = function(dt)
 	rpo = {}
 	for k,v in ipairs(E.dynamic_collision) do
+
 		checkCollision(v)
 	end
 	for k,v in ipairs(E.static_collision) do
@@ -74,6 +68,9 @@ s.functions.update = function(dt)
 end
 
 s.functions.reset = function()
+	lib = scripts.systems.collision.lib
+	lib.add_rule ("test", "test", lib.trivial_solve)
+
 	world = bump.newWorld(50)
 	s.circles = {}
 	s.boxes = {}
@@ -115,5 +112,4 @@ s.unregisters.collision = function(entity)
 end
 
 
-lib.add_rule("test", "test", core.DoAll(lib.trivial_solve, reverser))
 return s

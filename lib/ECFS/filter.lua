@@ -1,9 +1,16 @@
 core.filter = {}
 core.filter.rules = {}
-
+id_counter = 1
 E = {} -- E is the entity lists, so E.walls is going to contain all walls.
 F = {} -- F is the entity list, but as a dictionary
-
+id_to_entity = {} -- id_to_entity is the list of ID -> Entity
+entity_to_id = {} -- entity_to_id is the list of Entity -> ID
+function core.get_id(entity)
+	return entity_to_id[entity]
+end
+function core.get_entity(id)
+	return id_to_entity[id]
+end
 core.filter.add = function(name, rules)
 	local R = core.filter.rules
 	E[name] = {}
@@ -29,17 +36,26 @@ end
 
 
 core.filter.update = function(entity)
+	-- Add the entity to the ID-lists
+ 	while(id_to_entity[id_counter]) do
+		id_counter = id_counter + 10000
+	end
+
+	if not F[entity] then
+		id_to_entity[id_counter] = entity
+		entity_to_id[entity]     = id_counter
+		id_counter = id_counter + 1
+	end
 	local R = core.filter.rules
 	for _ , name_rules in pairs(R) do
 		local name, rule = name_rules[1], name_rules[2]
 		local all = true
 		for _, r in ipairs(rule) do
-			if string.sub(r,1,1) == "-" then
+			if string.sub(r, 1, 1) == "-" then
 
 				-- NOT
 				if string.sub(r,2,2) == "_" then
 					local s = string.sub(r,3)
-
 					if F[s][entity] then 
 						all = false
 						break
@@ -62,8 +78,8 @@ core.filter.update = function(entity)
 						break
 					end
 				end
-			else
 
+			else
 				-- NORMAL CASE
 				if string.sub(r,1,1) == "_" then
 					local s = string.sub(r,2)
