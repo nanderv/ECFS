@@ -15,23 +15,19 @@ core.Or = function(cfuncs)
 --------------------------
 core.Or is a function that gets functions (without arguments) and executes  them all, checking that ANY of them returns a positive result. If so, it returns true, if it doesn't, it returns false.
 
-
 core.Not = function(cfunc)
 --------------------------
 core.Not negates the result of a function.
 
-core.While = function(id1, id2, cfunc, func)
+core.While = function(cfunc, func)
 --------------------------------------------
 We store the Events using two identifiers.
-id1: First identifier. often you want to use the entity here.
-
-id2: Second identifier. Often you want to use a string describing the functionality here.
 
 core.While is a function that, for each frame, executes func if cfunc results true (for that frame).
 
 This could be used to say: when the key "w" is down, move up.
 
-core.When = function(id1, id2, cfunc, func)
+core.When = function(cfunc, func)
 --------------------------------------------
 core.When is a function that, for each frame, executes func if cfunc results true (for that frame).
 

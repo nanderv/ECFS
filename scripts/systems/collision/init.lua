@@ -10,7 +10,9 @@ CIRC = s.circles
 BOXES = s.boxes
 local rpo = {}
 s.prev = {}
-
+s.get_world = function()
+	return world
+end
 local function checkCollision (entity1)
 	local shape1 = nil
 	local x1, y1 = entity1.position.x, entity1.position.y
@@ -21,10 +23,10 @@ local function checkCollision (entity1)
 	end	
 	-- Use bump to check if entities are near enough. It uses either a circle around it or a box around it. The circle is rotation-safe, the box isn't.
 	local _, _, cols, len = world:move(entity1, entity1.position.x - shape1, entity1.position.y - shape1, function() return "cross"end)
+
 	for _,b in ipairs(cols) do
 		local entity2 = b.other
 		if entity1 ~= entity2  then
-			print("HERE")
 
 			-- Check if the collision is necessary. I think this is slightly slower than the previous check, so that's why this one is later. Not tested for speed.
 			if lib.check_rule(entity1, entity2) then
