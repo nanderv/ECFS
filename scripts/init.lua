@@ -9,6 +9,7 @@ end
 
 function scripts.handle_input(dt) 
 	scripts.input.wasd(dt)
+	scripts.input.wisker(dt)
 end
 function scripts.handle_pre_world_update(dt) 
 	for k,v in ipairs(core.get_list("pre")) do

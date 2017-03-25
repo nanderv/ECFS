@@ -4,6 +4,7 @@ local bump = require 'lib.bump'
 local world = bump.newWorld(50)
 local lib = {}
 s.functions = {}
+COLS = {}
 s.circles = {}
 s.boxes = {}
 CIRC = s.circles
@@ -12,6 +13,34 @@ local rpo = {}
 s.prev = {}
 s.get_world = function()
 	return world
+end
+local a = 0
+s.ray = function(entity1, from, to)
+	local x3, y3, x4, y4 = entity1.position.x+from.x,entity1.position.y+from.y,entity1.position.x+to.x,entity1.position.y+to.y
+	objs = world:querySegment(x3, y3, x4, y4)
+	
+
+	for k,entity2 in ipairs(objs) do
+		if entity1 ~= entity2  then
+
+			local p2  = lib.rotate_poly(entity2)
+			local d, x1, y1, x2, y2 = lib.line_in_polygon(p2, {x=from.x, y=from.y}, to,  entity2.position, entity1.position)
+
+			if d then
+				a=a+1
+				x1 = x1 + entity2.position.x
+				x2 = x2 + entity2.position.x
+				y1 = y1 + entity2.position.y
+				y2 = y2 + entity2.position.y
+				local xr = ((x1*y2- y1*x2)*(x3-x4) - (x1 - x2)*(x3*y4-y3*x4))/((x1-x2)*(y3 - y4)-(y1 - y2)*(x3-x4))
+				local yr = ((x1*y2- y1*x2)*(y3-y4) - (y1 - y2)*(x3*y4-y3*x4))/((x1-x2)*(y3 - y4)-(y1 - y2)*(x3-x4))
+				COLS[#COLS+1] = {x=xr, y=yr}
+
+				return entity2, xr, yr
+			end
+		end
+	end
+	return nil
 end
 local function checkCollision (entity1)
 	local shape1 = nil
