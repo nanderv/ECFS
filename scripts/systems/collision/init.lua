@@ -4,13 +4,44 @@ local bump = require 'lib.bump'
 local world = bump.newWorld(50)
 local lib = {}
 s.functions = {}
+COLS = {}
 s.circles = {}
 s.boxes = {}
 CIRC = s.circles
 BOXES = s.boxes
 local rpo = {}
 s.prev = {}
+s.get_world = function()
+	return world
+end
+local a = 0
+s.ray = function(entity1, from, to)
+	local x3, y3, x4, y4 = entity1.position.x+from.x,entity1.position.y+from.y,entity1.position.x+to.x,entity1.position.y+to.y
+	objs = world:querySegment(x3, y3, x4, y4)
+	
 
+	for k,entity2 in ipairs(objs) do
+		if entity1 ~= entity2  then
+
+			local p2  = lib.rotate_poly(entity2)
+			local d, x1, y1, x2, y2 = lib.line_in_polygon(p2, {x=from.x, y=from.y}, to,  entity2.position, entity1.position)
+
+			if d then
+				a=a+1
+				x1 = x1 + entity2.position.x
+				x2 = x2 + entity2.position.x
+				y1 = y1 + entity2.position.y
+				y2 = y2 + entity2.position.y
+				local xr = ((x1*y2- y1*x2)*(x3-x4) - (x1 - x2)*(x3*y4-y3*x4))/((x1-x2)*(y3 - y4)-(y1 - y2)*(x3-x4))
+				local yr = ((x1*y2- y1*x2)*(y3-y4) - (y1 - y2)*(x3*y4-y3*x4))/((x1-x2)*(y3 - y4)-(y1 - y2)*(x3-x4))
+				COLS[#COLS+1] = {x=xr, y=yr}
+
+				return entity2, xr, yr
+			end
+		end
+	end
+	return nil
+end
 local function checkCollision (entity1)
 	local shape1 = nil
 	local x1, y1 = entity1.position.x, entity1.position.y
@@ -21,10 +52,10 @@ local function checkCollision (entity1)
 	end	
 	-- Use bump to check if entities are near enough. It uses either a circle around it or a box around it. The circle is rotation-safe, the box isn't.
 	local _, _, cols, len = world:move(entity1, entity1.position.x - shape1, entity1.position.y - shape1, function() return "cross"end)
+
 	for _,b in ipairs(cols) do
 		local entity2 = b.other
 		if entity1 ~= entity2  then
-			print("HERE")
 
 			-- Check if the collision is necessary. I think this is slightly slower than the previous check, so that's why this one is later. Not tested for speed.
 			if lib.check_rule(entity1, entity2) then

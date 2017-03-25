@@ -94,7 +94,7 @@ local function point_in_polygon(polygon, point, position, position2)
 end
 
 
-function segmentIntersects(x1, y1, x2, y2, x3, y3, x4, y4)
+local function segmentIntersects(x1, y1, x2, y2, x3, y3, x4, y4)
    local d = (y4-y3)*(x2-x1)-(x4-x3)*(y2-y1)
    local Ua_n = ((x4-x3)*(y1-y3)-(y4-y3)*(x1-x3))
    local Ub_n = ((x2-x1)*(y1-y3)-(y2-y1)*(x1-x3))
@@ -110,7 +110,7 @@ function segmentIntersects(x1, y1, x2, y2, x3, y3, x4, y4)
    return false
 end
 
-
+f.segmentIntersects = segmentIntersects
 local function line_in_polygon(polygon, start, finish, position, position2)
 	local old = polygon[#polygon]
 
@@ -119,13 +119,13 @@ local function line_in_polygon(polygon, start, finish, position, position2)
 								old.x+position.x,old.y+position.y,
 								start.x+position2.x,start.y+position2.y,
 								finish.x+position2.x,finish.y+position2.y) then
-			return true
+			return true, v.x, v.y, old.x, old.y
 		end
 		old = v
 	end
 	return false
 end
-
+f.line_in_polygon = line_in_polygon
 
 f.polygon_in_polygon = function(polygon2, polygon,position2,position)
 	local hit = false
