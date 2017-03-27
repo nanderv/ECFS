@@ -16,7 +16,7 @@ s.get_world = function()
 end
 local a = 0
 s.ray = function(entity1, from, to)
-	local x3, y3, x4, y4 = entity1.position.x+from.x,entity1.position.y+from.y,entity1.position.x+to.x,entity1.position.y+to.y
+	local x3, y3, x4, y4 = entity1.position.x+from.x-to.x,entity1.position.y+from.y-to.y,entity1.position.x+to.x,entity1.position.y+to.y
 	objs = world:querySegment(x3, y3, x4, y4)
 	
 
@@ -34,7 +34,6 @@ s.ray = function(entity1, from, to)
 				y2 = y2 + entity2.position.y
 				local xr = ((x1*y2- y1*x2)*(x3-x4) - (x1 - x2)*(x3*y4-y3*x4))/((x1-x2)*(y3 - y4)-(y1 - y2)*(x3-x4))
 				local yr = ((x1*y2- y1*x2)*(y3-y4) - (y1 - y2)*(x3*y4-y3*x4))/((x1-x2)*(y3 - y4)-(y1 - y2)*(x3-x4))
-				COLS[#COLS+1] = {x=xr, y=yr}
 
 				return entity2, xr, yr
 			end

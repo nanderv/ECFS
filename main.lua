@@ -14,6 +14,11 @@ function love.load()
 	core.entity.add (ent)
 	local wasdplayer1 = scripts.handlers.print_onmove(ent)
 	core.addHandler(wasdplayer1.name, wasdplayer1.func)
+
+	local handler2 = scripts.handlers.handle_wisker()
+	core.addHandler(handler2.name, handler2.func)
+	pprint(handler2)
+
 	local c = {type="test", box=true, polygon = {{x=-100,y=0},{x=0,y=100},{x=100,y=0},{x=0,y=-100}}, dynamic = true}
 	local ent = {collision = nil, position = {x=250, y=250, rotation=0}, wiskers={{x=100,y=100},{x=-100,y=100}}}
 	core.entity.add (ent)

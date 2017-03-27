@@ -7,7 +7,7 @@ return function(dt)
 			love.graphics.line(sx, sy, w.x+sx, sy+w.y)
 		end
 		for l,w in ipairs(COLS) do
-		love.graphics.circle("line",w.x, w.y, 30)
+			love.graphics.circle("line",w.x, w.y, 30)
 		end
 	end
 end
