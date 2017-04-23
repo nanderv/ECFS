@@ -21,8 +21,6 @@ core.Not negates the result of a function.
 
 core.While = function(cfunc, func)
 --------------------------------------------
-We store the Events using two identifiers.
-
 core.While is a function that, for each frame, executes func if cfunc results true (for that frame).
 
 This could be used to say: when the key "w" is down, move up.
