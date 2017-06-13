@@ -123,7 +123,7 @@ local rawiter = function(obj, param, state)
         return string_gen, obj, 0
     end
     error(string.format('object %s of type "%s" is not iterable',
-          obj, type(obj)))
+        obj, type(obj)))
 end
 
 local iter = function(obj, param, state)
@@ -220,9 +220,9 @@ local range = function(start, stop, step)
     assert(step ~= 0, "step must not be zero")
 
     if (step > 0) then
-        return wrap(range_gen, {stop, step}, start - step)
+        return wrap(range_gen, { stop, step }, start - step)
     elseif (step < 0) then
-        return wrap(range_rev_gen, {stop, step}, start - step)
+        return wrap(range_rev_gen, { stop, step }, start - step)
     end
 end
 exports.range = range
@@ -243,7 +243,7 @@ local duplicate = function(...)
     if select('#', ...) <= 1 then
         return wrap(duplicate_gen, select(1, ...), 0)
     else
-        return wrap(duplicate_table_gen, {...}, 0)
+        return wrap(duplicate_table_gen, { ... }, 0)
     end
 end
 exports.duplicate = duplicate
@@ -286,7 +286,7 @@ local rands = function(n, m)
         assert(type(m) == "number", "invalid second arg to rands")
     end
     assert(n < m, "empty interval")
-    return wrap(rands_gen, {n, m - 1}, 0)
+    return wrap(rands_gen, { n, m - 1 }, 0)
 end
 exports.rands = rands
 
@@ -306,7 +306,7 @@ local nth = function(n, gen_x, param_x, state_x)
             return nil
         end
     end
-    for i=1,n-1,1 do
+    for i = 1, n - 1, 1 do
         state_x = gen_x(param_x, state_x)
         if state_x == nil then
             return nil
@@ -348,7 +348,7 @@ local take_n_gen_x = function(i, state_x, ...)
     if state_x == nil then
         return nil
     end
-    return {i, state_x}, ...
+    return { i, state_x }, ...
 end
 
 local take_n_gen = function(param, state)
@@ -362,7 +362,7 @@ end
 
 local take_n = function(n, gen, param, state)
     assert(n >= 0, "invalid first argument to take_n")
-    return wrap(take_n_gen, {n, gen, param}, {0, state})
+    return wrap(take_n_gen, { n, gen, param }, { 0, state })
 end
 methods.take_n = method1(take_n)
 exports.take_n = export1(take_n)
@@ -381,7 +381,7 @@ end
 
 local take_while = function(fun, gen, param, state)
     assert(type(fun) == "function", "invalid first argument to take_while")
-    return wrap(take_while_gen, {fun, gen, param}, state)
+    return wrap(take_while_gen, { fun, gen, param }, state)
 end
 methods.take_while = method1(take_while)
 exports.take_while = export1(take_while)
@@ -399,7 +399,7 @@ exports.take = export1(take)
 local drop_n = function(n, gen, param, state)
     assert(n >= 0, "invalid first argument to drop_n")
     local i
-    for i=1,n,1 do
+    for i = 1, n, 1 do
         state = gen(param, state)
         if state == nil then
             return wrap(nil_gen, nil, nil)
@@ -444,7 +444,7 @@ exports.drop = export1(drop)
 
 local split = function(n_or_fun, gen_x, param_x, state_x)
     return take(n_or_fun, gen_x, param_x, state_x),
-           drop(n_or_fun, gen_x, param_x, state_x)
+    drop(n_or_fun, gen_x, param_x, state_x)
 end
 methods.split = method1(split)
 exports.split = export1(split)
@@ -485,13 +485,13 @@ local indexes_gen = function(param, state)
         end
         i = i + 1
         if r == x then
-            return {i, state_x}, i
+            return { i, state_x }, i
         end
     end
 end
 
 local indexes = function(x, gen, param, state)
-    return wrap(indexes_gen, {x, gen, param}, {0, state})
+    return wrap(indexes_gen, { x, gen, param }, { 0, state })
 end
 methods.indexes = method1(indexes)
 exports.indexes = export1(indexes)
@@ -544,7 +544,7 @@ local filter_gen = function(param, state_x)
 end
 
 local filter = function(fun, gen, param, state)
-    return wrap(filter_gen, {fun, gen, param}, state)
+    return wrap(filter_gen, { fun, gen, param }, state)
 end
 methods.filter = method1(filter)
 exports.filter = export1(filter)
@@ -566,7 +566,7 @@ local partition = function(fun, gen, param, state)
         return not fun(...)
     end
     return filter(fun, gen, param, state),
-           filter(neg_fun, gen, param, state)
+    filter(neg_fun, gen, param, state)
 end
 methods.partition = method1(partition)
 exports.partition = export1(partition)
@@ -622,7 +622,7 @@ local is_prefix_of = function(iter_x, iter_y)
     local gen_y, param_y, state_y = iter(iter_y)
 
     local r_x, r_y
-    for i=1,10,1 do
+    for i = 1, 10, 1 do
         state_x, r_x = gen_x(param_x, state_x)
         state_y, r_y = gen_y(param_y, state_y)
         if state_x == nil then
@@ -810,7 +810,7 @@ local map_gen = function(param, state)
 end
 
 local map = function(fun, gen, param, state)
-    return wrap(map_gen, {gen, param, fun}, state)
+    return wrap(map_gen, { gen, param, fun }, state)
 end
 methods.map = method1(map)
 exports.map = export1(map)
@@ -819,7 +819,7 @@ local enumerate_gen_call = function(state, i, state_x, ...)
     if state_x == nil then
         return nil
     end
-    return {i + 1, state_x}, i, ...
+    return { i + 1, state_x }, i, ...
 end
 
 local enumerate_gen = function(param, state)
@@ -829,7 +829,7 @@ local enumerate_gen = function(param, state)
 end
 
 local enumerate = function(gen, param, state)
-    return wrap(enumerate_gen, {gen, param}, {1, state})
+    return wrap(enumerate_gen, { gen, param }, { 1, state })
 end
 methods.enumerate = method0(enumerate)
 exports.enumerate = export0(enumerate)
@@ -838,14 +838,14 @@ local intersperse_call = function(i, state_x, ...)
     if state_x == nil then
         return nil
     end
-    return {i + 1, state_x}, ...
+    return { i + 1, state_x }, ...
 end
 
 local intersperse_gen = function(param, state)
     local x, gen_x, param_x = param[1], param[2], param[3]
     local i, state_x = state[1], state[2]
     if i % 2 == 1 then
-        return {i + 1, state_x}, x
+        return { i + 1, state_x }, x
     else
         return intersperse_call(i, gen_x(param_x, state_x))
     end
@@ -853,7 +853,7 @@ end
 
 -- TODO: interperse must not add x to the tail
 local intersperse = function(x, gen, param, state)
-    return wrap(intersperse_gen, {x, gen, param}, {0, state})
+    return wrap(intersperse_gen, { x, gen, param }, { 0, state })
 end
 methods.intersperse = method1(intersperse)
 exports.intersperse = export1(intersperse)
@@ -861,7 +861,6 @@ exports.intersperse = export1(intersperse)
 --------------------------------------------------------------------------------
 -- Compositions
 --------------------------------------------------------------------------------
-
 local function zip_gen_r(param, state, state_new, ...)
     if #state_new == #param / 2 then
         return state_new, ...
@@ -889,7 +888,7 @@ local numargs = function(...)
         -- Fix last argument
         local it = select(n - 2, ...)
         if type(it) == 'table' and getmetatable(it) == iterator_mt and
-           it.param == select(n - 1, ...) and it.state == select(n, ...) then
+                it.param == select(n - 1, ...) and it.state == select(n, ...) then
             return n - 2
         end
     end
@@ -905,7 +904,7 @@ local zip = function(...)
     local state = { [n] = 0 }
 
     local i, gen_x, param_x, state_x
-    for i=1,n,1 do
+    for i = 1, n, 1 do
         local it = select(n - i + 1, ...)
         gen_x, param_x, state_x = rawiter(it)
         param[2 * i - 1] = gen_x
@@ -932,7 +931,7 @@ local cycle_gen = function(param, state_x)
 end
 
 local cycle = function(gen, param, state)
-    return wrap(cycle_gen, {gen, param, state}, deepcopy(state))
+    return wrap(cycle_gen, { gen, param, state }, deepcopy(state))
 end
 methods.cycle = method0(cycle)
 exports.cycle = export0(cycle)
@@ -947,9 +946,9 @@ local chain_gen_r2 = function(param, state, state_x, ...)
             return nil
         end
         local state_x = param[3 * i]
-        return chain_gen_r1(param, {i, state_x})
+        return chain_gen_r1(param, { i, state_x })
     end
-    return {state[1], state_x}, ...
+    return { state[1], state_x }, ...
 end
 
 chain_gen_r1 = function(param, state)
@@ -966,7 +965,7 @@ local chain = function(...)
 
     local param = { [3 * n] = 0 }
     local i, gen_x, param_x, state_x
-    for i=1,n,1 do
+    for i = 1, n, 1 do
         local elem = select(i, ...)
         gen_x, param_x, state_x = iter(elem)
         param[3 * i - 2] = gen_x
@@ -974,7 +973,7 @@ local chain = function(...)
         param[3 * i] = state_x
     end
 
-    return wrap(chain_gen_r1, param, {1, param[3]})
+    return wrap(chain_gen_r1, param, { 1, param[3] })
 end
 methods.chain = chain
 exports.chain = chain
@@ -987,19 +986,19 @@ local operator = {
     ----------------------------------------------------------------------------
     -- Comparison operators
     ----------------------------------------------------------------------------
-    lt  = function(a, b) return a < b end,
-    le  = function(a, b) return a <= b end,
-    eq  = function(a, b) return a == b end,
-    ne  = function(a, b) return a ~= b end,
-    ge  = function(a, b) return a >= b end,
-    gt  = function(a, b) return a > b end,
+    lt = function(a, b) return a < b end,
+    le = function(a, b) return a <= b end,
+    eq = function(a, b) return a == b end,
+    ne = function(a, b) return a ~= b end,
+    ge = function(a, b) return a >= b end,
+    gt = function(a, b) return a > b end,
 
     ----------------------------------------------------------------------------
     -- Arithmetic operators
     ----------------------------------------------------------------------------
     add = function(a, b) return a + b end,
     div = function(a, b) return a / b end,
-    floordiv = function(a, b) return math.floor(a/b) end,
+    floordiv = function(a, b) return math.floor(a / b) end,
     intdiv = function(a, b)
         local q = a / b
         if a >= 0 then return math.floor(q) else return math.ceil(q) end
@@ -1011,13 +1010,13 @@ local operator = {
     pow = function(a, b) return a ^ b end,
     sub = function(a, b) return a - b end,
     truediv = function(a, b) return a / b end,
-    insert = function(a,b, c) 
+    insert = function(a, b, c)
         a[b] = c
         return a
     end,
     keys = function(tab)
         local keyset = {}
-        for k,v in pairs(tab) do
+        for k, v in pairs(tab) do
             keyset[#keyset + 1] = k
         end
         return keyset
@@ -1025,7 +1024,7 @@ local operator = {
     ----------------------------------------------------------------------------
     -- String operators
     ----------------------------------------------------------------------------
-    concat = function(a, b) return a..b end,
+    concat = function(a, b) return a .. b end,
     len = function(a) return #a end,
     length = function(a) return #a end, -- an alias
 

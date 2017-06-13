@@ -1,7 +1,9 @@
-return function() 
+return function()
 
-	return{name="wisker", func = function(event, dt)
-			--pprint(event)
- 		end
-	}
+    return {
+        name = "wisker",
+        func = function(event, dt)
+            --pprint(event)
+        end
+    }
 end
