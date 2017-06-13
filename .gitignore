@@ -31,7 +31,7 @@ assets*
 *.so
 *.so.*
 *.dylib
-
+/.idea
 # Executables
 *.exe
 *.out
