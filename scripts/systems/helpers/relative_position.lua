@@ -8,7 +8,6 @@ s.functions.update = function(dt)
         local p = core.get_entity(v.relativeto.id).position
         v.position = { x = p.x + v.relativeto.position.x, y = p.y + v.relativeto.position.y, rotation = p.rotation + v.position.rotation }
         prevposses[v] = v.position
-        pprint(v)
     end
 end
 

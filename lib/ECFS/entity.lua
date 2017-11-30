@@ -10,6 +10,7 @@ function core.entity.remove(entity)
     local id = entity_to_id[entity]
     entity_to_id[entity] = nil
     id_to_entity[id] = nil
+
     for _, name_rules in pairs(R) do
         local name = name_rules[1]
         local ind = F[name][entity]

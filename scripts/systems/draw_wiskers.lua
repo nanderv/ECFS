@@ -1,5 +1,4 @@
-return function(dt)
-    for k, v in pairs(E.wiskers) do
+return function(v, _)
         local sx = v.position.x
         local sy = v.position.y
         love.graphics.circle("line", v.position.x, v.position.y, 10)
@@ -9,5 +8,4 @@ return function(dt)
         for l, w in ipairs(COLS) do
             love.graphics.circle("line", w.x, w.y, 30)
         end
-    end
 end
