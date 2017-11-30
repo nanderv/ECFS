@@ -31,7 +31,7 @@ assets*
 *.so
 *.so.*
 *.dylib
-/.idea
+
 # Executables
 *.exe
 *.out
@@ -40,3 +40,6 @@ assets*
 *.x86_64
 *.hex
 
+# IDE project files
+*.iml
+/.idea
