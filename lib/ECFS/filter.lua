@@ -36,7 +36,6 @@ core.filter.remove = function(name)
     end
 end
 
-
 core.filter.update = function(entity)
     -- Add the entity to the ID-lists
     while (id_to_entity[id_counter]) do

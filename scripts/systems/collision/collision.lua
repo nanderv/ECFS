@@ -42,15 +42,14 @@ s.ray = function(entity1, from, to)
     return nil
 end
 local function checkCollision(entity1)
-    local shape1 = nil
-    local x1, y1 = entity1.position.x, entity1.position.y
+    local shape1
     if s.circles[entity1] then
         shape1 = s.circles[entity1]
     else
         shape1 = -s.boxes[entity1].minx
     end
     -- Use bump to check if entities are near enough. It uses either a circle around it or a box around it. The circle is rotation-safe, the box isn't.
-    local _, _, cols, len = world:move(entity1, entity1.position.x - shape1, entity1.position.y - shape1, function() return "cross" end)
+    local _, _, cols, _ = world:move(entity1, entity1.position.x - shape1, entity1.position.y - shape1, function() return "cross" end)
 
     for _, b in ipairs(cols) do
         local entity2 = b.other
@@ -83,7 +82,7 @@ local function checkCollision(entity1)
 end
 
 
-s.functions.update = function(dt)
+s.functions.update = function(_)
     rpo = {}
     for k, v in ipairs(E.dynamic_collision) do
 

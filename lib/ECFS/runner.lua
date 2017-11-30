@@ -3,6 +3,8 @@
 -- filter: String   - The name of the filter
 -- funct : Function - The function to be executed on all entities that pass a certain filter
 -- args  : Table    - Table of arguments for runner
+
+-- Return values: two booleans: update, delete
 core.run = function(filter, funct, args)
     local l = E[filter]
     for _,v in ipairs(l) do
@@ -12,6 +14,5 @@ core.run = function(filter, funct, args)
         elseif o then
             core.filter.update(v)
         end
-
     end
 end
