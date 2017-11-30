@@ -1,11 +1,11 @@
 -- A filter gives a list of entities based on certain criteria.
 core.filter = {}
 core.filter.rules = {}
-id_counter = 1
-E = {} -- E is the entity lists, so E.walls is going to contain all walls.
-F = {} -- F is the entity list, but as a dictionary
-id_to_entity = {} -- id_to_entity is the list of ID -> Entity
-entity_to_id = {} -- entity_to_id is the list of Entity -> ID
+id_counter = id_counter or 1
+E = E or {} -- E is the entity lists, so E.walls is going to contain all walls.
+F = F or {} -- F is the entity list, but as a dictionary
+id_to_entity = id_to_entity or {} -- id_to_entity is the list of ID -> Entity
+entity_to_id = entity_to_id or {} -- entity_to_id is the list of Entity -> ID
 function core.get_id(entity)
     return entity_to_id[entity]
 end

@@ -92,7 +92,7 @@ local function point_in_polygon(polygon, point, position, position2)
     end
     return odd
 end
-
+f.point_in_polygon = point_in_polygon
 
 local function segmentIntersects(x1, y1, x2, y2, x3, y3, x4, y4)
     local d = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1)

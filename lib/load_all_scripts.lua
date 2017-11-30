@@ -6,9 +6,18 @@ function my_require(str)
     return require(str)
 end
 
+local KEEP = { "scripts.systems.collision.collision" }
 function un_require()
     for k, v in pairs(requirements) do
-        package.loaded[v] = nil
+        local keep = false
+        for _, w in ipairs(KEEP) do
+            if w == v then
+                keep = true
+            end
+        end
+        if not keep then
+            package.loaded[v] = nil
+        end
     end
 end
 
@@ -48,5 +57,18 @@ local function recursiveEnumerate(folder, fileTree, first)
     return fileTree
 end
 
-recursiveEnumerate("scripts", "", true)
-pprint(scripts)
+local rl = function()
+    recursiveEnumerate("scripts", "", true)
+end
+RELOADALL = function()
+    un_require()
+print(" GAME LOGIC RESET")
+
+    rl()
+
+    scripts.systems.collision.collision.functions.reset()
+    for k, v in pairs(E.A) do
+        core.filter.update(v)
+    end
+end
+rl()

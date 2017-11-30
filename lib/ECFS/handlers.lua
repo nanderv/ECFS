@@ -11,15 +11,25 @@ core.removeHandler = function(handler)
     handlers[handler.id] = nil
 end
 core.findHandlerFromSublist = function(name, h)
+    pprint(h)
     if h.name == name then
         return h
     end
-    if (type(h.run) == "table" and h.run.type == "handler") then
-        local found = core.findHandlerFromSublist(name, v.run)
-        if found then
-            return found
+    if type(h.run) == "table" then
+        if h.run.type == "handler" then
+            local found = core.findHandlerFromSublist(name, v.run)
+            if found then
+                return found
+            end
+        elseif h.run.type == "list" then
+            for _, w in ipairs(h.run) do
+                local found = core.findHandlerFromSublist(name, w)
+                if found then
+                    return found
+                end
+            end
         end
-    elseif (type(h) == "table" and h.type == "list") then
+    elseif h.type == "list" then
         for _, w in ipairs(h) do
             local found = core.findHandlerFromSublist(name, w)
             if found then
