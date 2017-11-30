@@ -1,4 +1,5 @@
 -- A system is a combination of a register and unregister function.
+-- For convenience's sake, functions can be stored within the system, but they will NOT be executed automatically!
 core.system = {}
 core.system.registers = {}
 core.system.unregisters = {}

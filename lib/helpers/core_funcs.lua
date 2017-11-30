@@ -1,3 +1,5 @@
+-- Contains some higher-order functions.
+-- Not really in use right now, might be of use later.
 core = core or {}
 core.events = core.events or {}
 core.And = function(cfuncs)

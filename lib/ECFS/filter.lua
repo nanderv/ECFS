@@ -1,3 +1,4 @@
+-- A filter gives a list of entities based on certain criteria.
 core.filter = {}
 core.filter.rules = {}
 id_counter = 1

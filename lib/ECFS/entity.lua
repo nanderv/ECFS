@@ -1,3 +1,4 @@
+-- An entity is a single game-object. It should ALWAYS be data-only.
 core.entity = {}
 
 local unregisters = core.system.unregisters

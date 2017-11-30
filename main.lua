@@ -1,6 +1,5 @@
 pprint = require 'lib.pprint'
 require 'lib.helpers.core_funcs'
-require 'lib.helpers.keyboard_input'
 require 'lib.ECFS'
 require 'lib.load_all_scripts'
 
