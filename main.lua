@@ -4,13 +4,12 @@ require 'lib.ECFS'
 require 'lib.load_all_scripts'
 local handling = require 'lib.UI.handling'
 require 'lib.UI.ui_data_state'
-
+core.events = require 'lib.event_handling.events'
 function addStates()
     print( scripts.states.testPage())
     handling.addState("menu", scripts.states.testPage())
     handling.addState("subMenu", {prevState= "menu"})
     UIDATASTATE.PUT({"a", "b"}, 3)
-    pprint(UIDATASTATE.GET({}))
 end
 function love.load()
     require 'scripts'
@@ -19,6 +18,7 @@ function love.load()
 end
 
 function love.update(dt)
+    core.events.loop(dt)
     handling.update(dt)
 end
 

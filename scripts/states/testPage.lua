@@ -13,7 +13,13 @@ return function()
         enter = function() end,
         leave = function() end,
         elements = {
-            sq(10, 10, 100, 100, print)
-        }
+            sq(10, 10, 100, 100, function() core.events.add(scripts.events.printEvent("HI")) end)
+        },
+        systems = {
+            "collision",
+        },
+        update = function()
+
+        end
     }
 end

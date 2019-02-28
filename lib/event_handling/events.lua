@@ -18,7 +18,9 @@ end
 
 events.loop = function(dt)
     for k,v in ipairs(eventsList[i]) do
-        print(k)
+        if v.object == nil or F[v.object] then
+            v.func(v.data)
+        end
     end
 
     -- reset

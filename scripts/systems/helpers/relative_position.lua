@@ -26,5 +26,8 @@ s.unregisters = {}
 s.unregisters.relative_position = function(entity)
     prevposses[entity] = nil
 end
-
+s.update = s.functions.update
+s.reset = s.functions.reset
+s.paused = false
+s.name = "relative_collision"
 return s
