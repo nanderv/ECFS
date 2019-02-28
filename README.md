@@ -25,3 +25,18 @@ s.unregister = {}
 s.register.wall   = function(entity) end
 s.unregister.wall = function(entity) end
 ```
+
+
+## Event System
+The Event System used here uses a double-buffer sort of methodology. Events get added to a double-buffer, and get handled in the next frame. A delay of 16 ms is introduced, but this should be fine.
+
+And event has the following shape:
+```lua
+{
+    funct= function(dt) end,
+    data = {someData},
+    object = {someStateObject}    
+}
+```
+
+If the object is null, then it's seen as an event that will fire regardless of object.

@@ -17,8 +17,6 @@ function core.entity.remove(entity)
         local ind = F[name][entity]
 
         if ind then
-            E[name][ind] = E[name][#E[name]]
-            E[name][#E[name]] = nil
             F[name][entity] = nil
             if unregisters[name] then
                 for _, v in pairs(unregisters[name]) do
