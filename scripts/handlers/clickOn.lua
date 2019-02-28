@@ -5,6 +5,7 @@ clickOn.clickArea = function(x, y, w, h)
         return (event.x > x and event.y > y and event.x < x + w and event.y < y + h)
     end
 end
+
 clickOn.findAllClickableObjects = function(filter)
     return function(event)
         local objs = {}
@@ -16,6 +17,7 @@ clickOn.findAllClickableObjects = function(filter)
         return objs
     end
 end
+
 clickOn.filterObjects = function(func, filterFunc)
     return function(event)
         local objs = func(event)
@@ -28,6 +30,7 @@ clickOn.filterObjects = function(func, filterFunc)
         end
     end
 end
+
 clickOn.print = function(func)
     return function(event)
         pprint(func(event))

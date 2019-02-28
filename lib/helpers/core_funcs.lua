@@ -63,35 +63,7 @@ core.When = function(cfunc, func)
         end
     end
 end
-local fst = 1
-local lists = { pre = {}, post = {} }
-function core.add_event(list_name, event)
-    lists[list_name][#lists[list_name] + 1] = event
-end
 
-function core.get_list(list_name)
-    local rv = lists[list_name]
-    lists[list_name] = {}
-    return rv
-end
-
-local handlers = {}
-function core.addHandler(name, func)
-    handlers[name] = handlers[name] or {}
-    handlers[name][#handlers[name] + 1] = func
-end
-
-function core.runHandlers(id, event, list_name, dt)
-    local name = event.name
-    if handlers[name] then
-        for k, v in ipairs(handlers[name]) do
-            lists[list_name][#lists[list_name] + 1] = v(event, dt)
-        end
-    else
-        print("No handlers for event " .. event.name)
-        print(event)
-    end
-end
 
 core.PreFill = function(a, ...)
     local b = { ... }
