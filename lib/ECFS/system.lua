@@ -19,8 +19,8 @@ core.system.add = function(system)
         for k, v in pairs(system.registers) do
             registers[k] = registers[k] or {}
             registers[k][system] = system
-            if E[k] then
-                for _, w in pairs(E[k]) do
+            if F[k] then
+                for _, w in pairs(F[k]) do
                     system.registers[k](w)
                 end
             end
@@ -47,8 +47,8 @@ core.system.remove = function(system)
         registers[k][system] = nil
     end
     for k, _ in pairs(system.unregisters) do
-        if E[k] then
-            for _, w in pairs(E[k]) do
+        if F[k] then
+            for _, w in pairs(F[k]) do
                 system.unregisters[k](w)
             end
         end

@@ -14,7 +14,7 @@ end
 function love.load()
     require 'scripts'
     addStates()
-
+    core.system.add(scripts.systems.collision.collision())
 end
 
 function love.update(dt)
