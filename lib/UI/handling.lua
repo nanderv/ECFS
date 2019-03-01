@@ -6,7 +6,6 @@
 -- To change this template use File | Settings | File Templates.
 --
 
-local sq = require "lib.UI.square"
 local state = {}
 state.gameSpeed = 1
 state.isPaused = false
@@ -31,6 +30,7 @@ state.setState = function(str)
     end
     state.currentState = str
 end
+
 state.drawState = function(stateName)
     local myState = state.UIStates[stateName]
     if myState.prevState then
@@ -49,6 +49,7 @@ state.drawState = function(stateName)
         end
     end
 end
+
 state.draw = function()
     state.drawState(state.currentState)
 end
@@ -89,6 +90,7 @@ end
 
 state.keypressed = function(key, scanCode, isRepeat)
 end
+
 state.keyreleased = function(key, scanCode)
 end
 
@@ -109,6 +111,7 @@ state.mousePressedState = function(stateName, x, y, button, istouch, presses)
         end
     end
 end
+
 state.mousePressed = function(x, y, button, istouch, presses)
     state.mousePressedState(state.currentState, x, y, button, istouch, presses)
 end
